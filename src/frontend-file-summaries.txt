@@ -1,0 +1,23 @@
+{
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, defining all routes (sign-in, contacts, call setup, in-call, call ended) with authentication guards and theme provider integration.",
+  "frontend/src/components/AppLayout.tsx": "Shared layout component providing a consistent header with app icon, branding, and authentication status across all pages.",
+  "frontend/src/components/AuthStatus.tsx": "Header widget displaying the signed-in user's shortened principal ID and a sign-out button with query cache clearing.",
+  "frontend/src/components/RequireAuth.tsx": "Route guard component that redirects unauthenticated users to the sign-in page and shows a loading state during initialization.",
+  "frontend/src/components/ContactForm.tsx": "Form component for adding new contacts with name and handle fields, validation, and submission state handling.",
+  "frontend/src/components/ContactsList.tsx": "List component rendering contacts with avatar fallbacks, delete actions, and empty/loading states optimized for mobile touch targets.",
+  "frontend/src/components/CallControls.tsx": "In-call control bar with large circular buttons for mute, camera toggle, speaker (placeholder), and end call actions with clear active states.",
+  "frontend/src/components/LocalVideoPreview.tsx": "Video preview component integrating the camera hook with error handling, permission prompts, and stable aspect ratio display.",
+  "frontend/src/components/JoinCodeCard.tsx": "Card component displaying a shareable call link with copy-to-clipboard functionality and toast notifications.",
+  "frontend/src/components/SessionStatusPanel.tsx": "Panel showing call session state, participants, timestamps, and a prototype disclaimer with polling-based updates.",
+  "frontend/src/pages/SignInPage.tsx": "Onboarding page with app icon, background image overlay, feature highlights, and Internet Identity sign-in button.",
+  "frontend/src/pages/ContactsPage.tsx": "Protected page for managing contacts with add/delete functionality, navigation to call setup, and loading states.",
+  "frontend/src/pages/CallSetupPage.tsx": "Protected page with tabs for creating new call sessions or joining existing ones by entering a session code and handle.",
+  "frontend/src/pages/InCallPage.tsx": "Protected in-call page with local video preview, call controls, session status polling via useGetCallSession hook, join code sharing (for creators), and end call functionality.",
+  "frontend/src/pages/CallEndedPage.tsx": "Post-call screen with options to start a new call or return to contacts list.",
+  "frontend/src/hooks/useContacts.ts": "React Query hooks for listing, creating, and deleting contacts with cache invalidation and toast notifications.",
+  "frontend/src/hooks/useCallSessions.ts": "React Query hooks for creating, joining, and ending call sessions, plus a separate useGetCallSession hook for fetching and polling individual session state with 3-second intervals.",
+  "frontend/src/utils/principalFormat.ts": "Utility function to format long principal IDs into shortened display format (e.g., \"2vxsx-fae\").",
+  "frontend/src/index.css": "Global styles with warm-neutral OKLCH color system (avoiding blue/purple) for light and dark modes with consistent spacing and typography.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending the theme with warm-neutral color tokens, custom border radius, shadows, and system font stack.",
+  "frontend/index.html": "HTML entry point with mobile-optimized viewport settings, theme color, and PWA-ready meta tags."
+}

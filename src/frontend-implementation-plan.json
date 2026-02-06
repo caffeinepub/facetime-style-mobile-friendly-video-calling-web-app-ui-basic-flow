@@ -1,0 +1,259 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "FaceTime-style mobile-friendly video calling web app (frontend UI + basic flow)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Implement a mobile-first, FaceTime-inspired multi-screen app with client-side routing for sign-in, contacts, call setup/join, in-call, and call-ended screens.",
+      "acceptanceCriteria": [
+        "All primary screens are usable on narrow mobile viewports (e.g., 360–430px wide) and also scale to desktop.",
+        "App includes routes/pages for: Sign in, Contacts, Start Call / Join Call, In Call, Call Ended.",
+        "Navigation between screens is implemented (buttons/links) and does not require page reloads."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the app shell with client-side routing and a shared layout/header; wire required pages (SignIn, Contacts, CallSetup, InCall, CallEnded) so navigation happens without reloads."
+        },
+        {
+          "path": "frontend/src/components/AppLayout.tsx",
+          "operation": "create",
+          "description": "Add a reusable layout component that provides a mobile-first header, safe-area-friendly spacing, and a consistent container for all screens."
+        },
+        {
+          "path": "frontend/src/pages/SignInPage.tsx",
+          "operation": "create",
+          "description": "Implement the onboarding/sign-in page (public) with primary CTA to sign in and responsive layout optimized for narrow viewports."
+        },
+        {
+          "path": "frontend/src/pages/ContactsPage.tsx",
+          "operation": "create",
+          "description": "Implement the contacts list page (protected) with navigation to the call setup/join flow."
+        },
+        {
+          "path": "frontend/src/pages/CallSetupPage.tsx",
+          "operation": "create",
+          "description": "Implement the Start Call / Join Call page (protected) with actions to create a new session or join an existing one by code."
+        },
+        {
+          "path": "frontend/src/pages/InCallPage.tsx",
+          "operation": "create",
+          "description": "Implement the in-call UI page (protected) and wire it to accept a session identifier from the route so it can display session status and local preview."
+        },
+        {
+          "path": "frontend/src/pages/CallEndedPage.tsx",
+          "operation": "create",
+          "description": "Implement the call-ended screen (protected) with actions to return to contacts or start a new call."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Use Internet Identity to authenticate users, display the signed-in principal (short form) in the UI, and protect contacts/call routes with redirect-to-sign-in behavior.",
+      "acceptanceCriteria": [
+        "When signed out, attempting to access contacts/call pages redirects to a sign-in screen.",
+        "When signed in, the UI displays the user principal (or a derived short identifier) and a sign-out action."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/RequireAuth.tsx",
+          "operation": "create",
+          "description": "Add a route guard wrapper that checks Internet Identity auth state and redirects unauthenticated users to the sign-in screen."
+        },
+        {
+          "path": "frontend/src/components/AuthStatus.tsx",
+          "operation": "create",
+          "description": "Create a header widget showing signed-in status, a shortened principal identifier, and a sign-out action; ensure it is used in the shared layout."
+        },
+        {
+          "path": "frontend/src/utils/principalFormat.ts",
+          "operation": "create",
+          "description": "Add a small utility to format a principal into a short identifier suitable for display in tight mobile headers."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire protected routes (Contacts, Call Setup, In Call, Call Ended) through RequireAuth and ensure sign-in is the default redirect target when signed out."
+        },
+        {
+          "path": "frontend/src/hooks/useInternetIdentity.ts",
+          "operation": "modify",
+          "description": "Ensure the auth hook exposes stable authenticated state for routing/guard checks and supports reliable logout; keep behavior aligned with Internet Identity-only constraint."
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "operation": "modify",
+          "description": "Ensure React Query cache is cleared on logout by integrating the auth UI action with QueryClient clearing (so protected data is not visible after sign-out)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build a contacts UI (create/list/delete) backed by the canister and integrated with React Query caching, scoped to the authenticated user.",
+      "acceptanceCriteria": [
+        "Backend exposes methods to add/list/delete contacts scoped to the caller principal.",
+        "Frontend provides a contacts list UI with add and delete actions and uses React Query for data fetching/caching.",
+        "Contacts persist across reloads for the same signed-in identity."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useContacts.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for listing contacts and performing create/delete mutations using the existing actor; ensure cache invalidation/refetch keeps the list consistent."
+        },
+        {
+          "path": "frontend/src/components/ContactForm.tsx",
+          "operation": "create",
+          "description": "Add a small form component to create contacts (name + handle) with basic validation and submit state; use it on the Contacts page."
+        },
+        {
+          "path": "frontend/src/components/ContactsList.tsx",
+          "operation": "create",
+          "description": "Add a list component rendering contacts with a delete action per item and clear empty/loading/error states; ensure mobile-friendly spacing and touch targets."
+        },
+        {
+          "path": "frontend/src/pages/ContactsPage.tsx",
+          "operation": "modify",
+          "description": "Wire the contacts React Query hooks into the Contacts page and compose ContactForm + ContactsList; ensure the page is usable on mobile and supports add/delete."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Create a FaceTime-like in-call UI that supports local camera preview (getUserMedia) and call controls to simulate calling (mute, camera toggle, speaker placeholder, end call).",
+      "acceptanceCriteria": [
+        "User can start/stop local camera preview from the in-call screen (with permission prompt handled).",
+        "Mute and camera toggle buttons update UI state clearly.",
+        "End call transitions to a call-ended screen and stops local media tracks."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/InCallPage.tsx",
+          "operation": "modify",
+          "description": "Integrate local camera preview and control state (mute, camera on/off, speaker placeholder, end call); Use the camera component hook (camera/useCamera) to support preview, start/stop, and error handling. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/CallControls.tsx",
+          "operation": "create",
+          "description": "Create a reusable control bar for in-call actions (mute, camera toggle, speaker placeholder, end call) with large touch targets, clear active states, and accessible focus styles."
+        },
+        {
+          "path": "frontend/src/components/LocalVideoPreview.tsx",
+          "operation": "create",
+          "description": "Create a responsive preview component that renders a stable-aspect video element (never collapses) and surfaces camera permission/support errors; Use the camera component hook (camera/useCamera) to attach videoRef/canvasRef and manage start/stop. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/CallEndedPage.tsx",
+          "operation": "modify",
+          "description": "Ensure the call-ended screen represents a completed session state and provides navigation back to contacts/call setup."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Implement the call session prototype flow UI: create session, show shareable join code/link, join by code, and poll session state to render participant/status updates (no realtime).",
+      "acceptanceCriteria": [
+        "Backend can create a call session and returns a unique join code.",
+        "Backend allows join/leave and provides a query to fetch current session state (participants, status).",
+        "Frontend can create a session, display a shareable join code/link, join by entering a code, and polls session state periodically to update participant status.",
+        "The app clearly indicates that this is a session/prototype flow and does not guarantee real peer-to-peer media connectivity."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useCallSessions.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for creating a call session, joining a session by code, ending a session, and fetching session state with polling via refetchInterval."
+        },
+        {
+          "path": "frontend/src/components/JoinCodeCard.tsx",
+          "operation": "create",
+          "description": "Add a UI card to display the join code and a shareable link (copy-to-clipboard) with clear labeling and mobile-friendly interaction."
+        },
+        {
+          "path": "frontend/src/components/SessionStatusPanel.tsx",
+          "operation": "create",
+          "description": "Add a panel that renders current session state (participants and status) and updates as polling returns new data; include a clear 'prototype' disclaimer."
+        },
+        {
+          "path": "frontend/src/pages/CallSetupPage.tsx",
+          "operation": "modify",
+          "description": "Wire create-session and join-by-code flows using the session hooks; after create/join, navigate to the In Call route and show join code/link for sessions the user created."
+        },
+        {
+          "path": "frontend/src/pages/InCallPage.tsx",
+          "operation": "modify",
+          "description": "Fetch and poll session state while in-call, render participant/status updates, and provide an end-call action that transitions to Call Ended after cleanup."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire routes so the In Call page accepts a session id/code in the route and supports navigation from Call Setup and Join links."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Apply a cohesive warm-neutral (non-blue/non-purple) theme with consistent typography, surfaces, spacing, and accessible control styling across all screens.",
+      "acceptanceCriteria": [
+        "Theme is consistent across onboarding, contacts, and call screens.",
+        "Primary actions and call controls have distinct, accessible styling (including focus states).",
+        "Color palette avoids blue and purple as dominant theme colors."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Define global theme tokens (CSS variables used by Tailwind/shadcn) for warm-neutral surfaces and a non-blue/non-purple primary accent; include consistent typography defaults and focus-visible styles."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust Tailwind theme extensions (if needed) to align with the warm-neutral palette and ensure call-control styles have consistent sizing and contrast across light/dark surfaces."
+        },
+        {
+          "path": "frontend/src/components/AppLayout.tsx",
+          "operation": "modify",
+          "description": "Apply consistent layout spacing, header styling, and light/dark surface treatment to match the theme across all routes."
+        },
+        {
+          "path": "frontend/src/components/CallControls.tsx",
+          "operation": "modify",
+          "description": "Ensure call control buttons have distinct visual hierarchy (primary vs destructive end-call), accessible focus states, and clear toggled states without relying on blue/purple as dominant colors."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add and render generated static image assets (app icon + subtle background/hero) from frontend/public/assets/generated and use them in the UI.",
+      "acceptanceCriteria": [
+        "Generated images are committed under frontend/public/assets/generated and referenced directly by the frontend.",
+        "App icon appears on the sign-in/onboarding screen and/or header.",
+        "Background/hero image is used on at least one public-facing screen (e.g., sign-in/onboarding) without harming readability."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/facetime-clone-icon.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated app icon asset as a static file committed under the required generated assets folder."
+        },
+        {
+          "path": "frontend/public/assets/generated/facetime-clone-bg.dim_1600x900.png",
+          "operation": "create",
+          "description": "Add the generated warm-neutral background/hero image as a static file committed under the required generated assets folder."
+        },
+        {
+          "path": "frontend/src/pages/SignInPage.tsx",
+          "operation": "modify",
+          "description": "Render the app icon (frontend/public/assets/generated/facetime-clone-icon.dim_512x512.png) and use the background/hero image (frontend/public/assets/generated/facetime-clone-bg.dim_1600x900.png) as a subtle backdrop with an overlay to preserve text readability."
+        },
+        {
+          "path": "frontend/src/components/AppLayout.tsx",
+          "operation": "modify",
+          "description": "Optionally include the app icon (frontend/public/assets/generated/facetime-clone-icon.dim_512x512.png) in the header for consistent branding across protected pages."
+        }
+      ]
+    }
+  ]
+}

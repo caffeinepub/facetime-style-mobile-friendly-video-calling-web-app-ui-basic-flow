@@ -1,0 +1,163 @@
+{
+  "kind": "build_request",
+  "title": "FaceTime-style mobile-friendly video calling web app (UI + basic flow)",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a mobile-first, FaceTime-inspired web app experience that works well in iPhone and Android mobile browsers (responsive layout) and includes core screens: onboarding/sign-in, contacts list, call setup, in-call UI, and call ended screen.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create a FaceTime app for Android and iPhone"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All primary screens are usable on narrow mobile viewports (e.g., 360–430px wide) and also scale to desktop.",
+        "App includes routes/pages for: Sign in, Contacts, Start Call / Join Call, In Call, Call Ended.",
+        "Navigation between screens is implemented (buttons/links) and does not require page reloads."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement authentication using Internet Identity and show the signed-in principal on the UI; signed-out users must be prompted to sign in before accessing contacts and call flows.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create a FaceTime app for Android and iPhone"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When signed out, attempting to access contacts/call pages redirects to a sign-in screen.",
+        "When signed in, the UI displays the user principal (or a derived short identifier) and a sign-out action."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add a basic contacts feature: allow users to create, list, and delete contacts (name + handle) stored in the Motoko backend per authenticated user.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create a FaceTime app for Android and iPhone"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes methods to add/list/delete contacts scoped to the caller principal.",
+        "Frontend provides a contacts list UI with add and delete actions and uses React Query for data fetching/caching.",
+        "Contacts persist across reloads for the same signed-in identity."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Provide a FaceTime-like in-call UI with local camera preview (getUserMedia) and call controls (mute, camera toggle, speaker placeholder, end call) to simulate the calling experience, even if peer-to-peer video is not implemented.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create a FaceTime app for Android and iPhone"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can start/stop local camera preview from the in-call screen (with permission prompt handled).",
+        "Mute and camera toggle buttons update UI state clearly.",
+        "End call transitions to a call-ended screen and stops local media tracks."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement a simple call session flow backed by the Motoko canister: create a call session, generate a shareable join code/link, allow another signed-in user to join by code, and show participant status updates via polling (no real-time sockets).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create a FaceTime app for Android and iPhone"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend can create a call session and returns a unique join code.",
+        "Backend allows join/leave and provides a query to fetch current session state (participants, status).",
+        "Frontend can create a session, display a shareable join code/link, join by entering a code, and polls session state periodically to update participant status.",
+        "The app clearly indicates that this is a session/prototype flow and does not guarantee real peer-to-peer media connectivity."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Apply one cohesive, non-blue/non-purple visual theme suitable for a FaceTime-style app (typography, spacing, button styles, and light/dark surfaces) and use it consistently across all screens.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create a FaceTime app for Android and iPhone"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Theme is consistent across onboarding, contacts, and call screens.",
+        "Primary actions and call controls have distinct, accessible styling (including focus states).",
+        "Color palette avoids blue and purple as dominant theme colors."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add generated static image assets (app icon and a subtle background/hero illustration) and render them in the UI from frontend/public/assets/generated (do not serve images from the backend).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create a FaceTime app for Android and iPhone"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images are committed under frontend/public/assets/generated and referenced directly by the frontend.",
+        "App icon appears on the sign-in/onboarding screen and/or header.",
+        "Background/hero image is used on at least one public-facing screen (e.g., sign-in/onboarding) without harming readability."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor in backend/main.mo; only add migration.mo if an upgrade-safe state migration is actually required.",
+    "Do not edit files under frontend/immutablePaths (compose existing hooks/components instead).",
+    "No WebSockets/Socket.io or true real-time chat/video calling infrastructure.",
+    "No third-party authentication providers (Internet Identity only)."
+  ],
+  "nonGoals": [
+    "Implementing a full FaceTime-equivalent peer-to-peer video calling system with production-grade signaling/STUN/TURN and real-time connectivity guarantees.",
+    "Native Android/iOS app packaging (deliver as a mobile-friendly web app).",
+    "Push notifications, SMS, or email invitations."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Minimal modern app icon (circular camera glyph + warm neutral palette) (facetime-clone-icon.dim_512x512.png)",
+      "Soft abstract gradient background with subtle noise texture (warm neutral tones) (facetime-clone-bg.dim_1600x900.png)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [
+      "Use English for any user-facing text."
+    ],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

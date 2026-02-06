@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a FaceTime-like cross-platform video calling app for Android and iPhone.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Minimal modern app icon (circular camera glyph + warm neutral palette) (facetime-clone-icon.dim_512x512.png)\n- Soft abstract gradient background with subtle noise texture (warm neutral tones) (facetime-clone-bg.dim_1600x900.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-mobile-first-facetime-inspired-web-app-experience-that-works-well-in-iphone-and-android-mobile-browsers-responsive-layout-and-includes-core-screens-onboarding-sign-in-contacts-list-call-setup-in-call-ui-and-call-ended-screen",
+      "title": "Create a mobile-first, FaceTime-inspired web app experience that works well in iPhone and Android mobile browsers (responsive layout) and includes core screens: onboarding/sign-in, contacts list, call setup, in-call UI, and call ended screen.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-authentication-using-internet-identity-and-show-the-signed-in-principal-on-the-ui-signed-out-users-must-be-prompted-to-sign-in-before-accessing-contacts-and-call-flows",
+      "title": "Implement authentication using Internet Identity and show the signed-in principal on the UI; signed-out users must be prompted to sign in before accessing contacts and call flows.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-basic-contacts-feature-allow-users-to-create-list-and-delete-contacts-name-handle-stored-in-the-motoko-backend-per-authenticated-user",
+      "title": "Add a basic contacts feature: allow users to create, list, and delete contacts (name + handle) stored in the Motoko backend per authenticated user.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-a-facetime-like-in-call-ui-with-local-camera-preview-getusermedia-and-call-controls-mute-camera-toggle-speaker-placeholder-end-call-to-simulate-the-calling-experience-even-if-peer-to-peer-video-is-not-implemented",
+      "title": "Provide a FaceTime-like in-call UI with local camera preview (getUserMedia) and call controls (mute, camera toggle, speaker placeholder, end call) to simulate the calling experience, even if peer-to-peer video is not implemented.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-simple-call-session-flow-backed-by-the-motoko-canister-create-a-call-session-generate-a-shareable-join-code-link-allow-another-signed-in-user-to-join-by-code-and-show-participant-status-updates-via-polling-no-real-time-sockets",
+      "title": "Implement a simple call session flow backed by the Motoko canister: create a call session, generate a shareable join code/link, allow another signed-in user to join by code, and show participant status updates via polling (no real-time sockets).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-one-cohesive-non-blue-non-purple-visual-theme-suitable-for-a-facetime-style-app-typography-spacing-button-styles-and-light-dark-surfaces-and-use-it-consistently-across-all-screens",
+      "title": "Apply one cohesive, non-blue/non-purple visual theme suitable for a FaceTime-style app (typography, spacing, button styles, and light/dark surfaces) and use it consistently across all screens.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-image-assets-app-icon-and-a-subtle-background-hero-illustration-and-render-them-in-the-ui-from-frontend-public-assets-generated-do-not-serve-images-from-the-backend",
+      "title": "Add generated static image assets (app icon and a subtle background/hero illustration) and render them in the UI from frontend/public/assets/generated (do not serve images from the backend).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a FaceTime-style video calling app that works on both Android and iPhone.",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "FaceTime-style mobile-friendly video calling web app (UI + basic flow)",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

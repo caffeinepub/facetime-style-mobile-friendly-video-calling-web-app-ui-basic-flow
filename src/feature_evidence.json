@@ -1,0 +1,171 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-mobile-first-facetime-inspired-web-app-experience-that-works-well-in-iphone-and-android-mobile-browsers-responsive-layout-and-includes-core-screens-onboarding-sign-in-contacts-list-call-setup-in-call-ui-and-call-ended-screen",
+      "featureTitle": "Create a mobile-first, FaceTime-inspired web app experience that works well in iPhone and Android mobile browsers (responsive layout) and includes core screens: onboarding/sign-in, contacts list, call setup, in-call UI, and call ended screen.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AppLayout.tsx",
+        "frontend/src/pages/CallEndedPage.tsx",
+        "frontend/src/pages/CallSetupPage.tsx",
+        "frontend/src/pages/ContactsPage.tsx",
+        "frontend/src/pages/InCallPage.tsx",
+        "frontend/src/pages/SignInPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "camera@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-authentication-using-internet-identity-and-show-the-signed-in-principal-on-the-ui-signed-out-users-must-be-prompted-to-sign-in-before-accessing-contacts-and-call-flows",
+      "featureTitle": "Implement authentication using Internet Identity and show the signed-in principal on the UI; signed-out users must be prompted to sign in before accessing contacts and call flows.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AuthStatus.tsx",
+        "frontend/src/components/RequireAuth.tsx",
+        "frontend/src/hooks/useInternetIdentity.ts",
+        "frontend/src/main.tsx",
+        "frontend/src/utils/principalFormat.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "camera@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-basic-contacts-feature-allow-users-to-create-list-and-delete-contacts-name-handle-stored-in-the-motoko-backend-per-authenticated-user",
+      "featureTitle": "Add a basic contacts feature: allow users to create, list, and delete contacts (name + handle) stored in the Motoko backend per authenticated user.",
+      "files": [
+        "frontend/src/components/ContactForm.tsx",
+        "frontend/src/components/ContactsList.tsx",
+        "frontend/src/hooks/useContacts.ts",
+        "frontend/src/pages/ContactsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "camera@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-provide-a-facetime-like-in-call-ui-with-local-camera-preview-getusermedia-and-call-controls-mute-camera-toggle-speaker-placeholder-end-call-to-simulate-the-calling-experience-even-if-peer-to-peer-video-is-not-implemented",
+      "featureTitle": "Provide a FaceTime-like in-call UI with local camera preview (getUserMedia) and call controls (mute, camera toggle, speaker placeholder, end call) to simulate the calling experience, even if peer-to-peer video is not implemented.",
+      "files": [
+        "frontend/src/components/CallControls.tsx",
+        "frontend/src/components/LocalVideoPreview.tsx",
+        "frontend/src/pages/CallEndedPage.tsx",
+        "frontend/src/pages/InCallPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "camera@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-simple-call-session-flow-backed-by-the-motoko-canister-create-a-call-session-generate-a-shareable-join-code-link-allow-another-signed-in-user-to-join-by-code-and-show-participant-status-updates-via-polling-no-real-time-sockets",
+      "featureTitle": "Implement a simple call session flow backed by the Motoko canister: create a call session, generate a shareable join code/link, allow another signed-in user to join by code, and show participant status updates via polling (no real-time sockets).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/JoinCodeCard.tsx",
+        "frontend/src/components/SessionStatusPanel.tsx",
+        "frontend/src/hooks/useCallSessions.ts",
+        "frontend/src/pages/CallSetupPage.tsx",
+        "frontend/src/pages/InCallPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "camera@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-one-cohesive-non-blue-non-purple-visual-theme-suitable-for-a-facetime-style-app-typography-spacing-button-styles-and-light-dark-surfaces-and-use-it-consistently-across-all-screens",
+      "featureTitle": "Apply one cohesive, non-blue/non-purple visual theme suitable for a FaceTime-style app (typography, spacing, button styles, and light/dark surfaces) and use it consistently across all screens.",
+      "files": [
+        "frontend/src/components/AppLayout.tsx",
+        "frontend/src/components/CallControls.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "camera@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-generated-static-image-assets-app-icon-and-a-subtle-background-hero-illustration-and-render-them-in-the-ui-from-frontend-public-assets-generated-do-not-serve-images-from-the-backend",
+      "featureTitle": "Add generated static image assets (app icon and a subtle background/hero illustration) and render them in the UI from frontend/public/assets/generated (do not serve images from the backend).",
+      "files": [
+        "frontend/src/components/AppLayout.tsx",
+        "frontend/src/pages/SignInPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "camera@1.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
